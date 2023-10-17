@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="total.css">
+    <link rel="icon" href="../EXE_web/Icon App.png" type="image/x-icon">
+
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <title>ADMIN/TOTAL </title>
+</head>
+
+<body>
+    <nav class="left-board">
+        <div class="logo-name">
+            <div class="logo-image">
+               <img src="../EXE_web/logo.png" alt="">
+            </div>
+
+            <!-- <span class="logo_name">TBEAR</span> -->
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="admin.html">
+                    <i class='bx bxs-user' style='color:#ffffff' ></i>
+                    <span class="link-name">User</span>
+                </a></li>
+                <li><a href="order.html" >
+                    <i class='bx bxs-cart-add' style='color:#ffffff' ></i>
+                    <span class = "link-name">Order</span>
+                </a></li>
+                <li><a href="#">
+                    <i class='bx bxs-bar-chart-alt-2' style='color:#4D4C4C' ></i>
+                    <span class="link-name">Total</span>
+                </a></li>
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a href="#">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name" >Logout</span>
+                </a></li>
+
+                <li class="mode">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                </a>
+
+                <div class="mode-toggle">
+                  <span class="switch"></span>
+                </div>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+            <div class="icon-box">
+                <div class="left-icon-box">
+                    <a href="#">
+                        <i class='bx bx-envelope' undefined style='color:#000000'></i>
+                    </a>
+                    <a href="#">
+                        <i class='bx bxs-bell' style='color:#000000'></i>
+                    </a>
+                </div>
+                <a href="#">
+                    <i class='bx bxs-user-circle' style='color:#000000'></i>
+                </a>
+            </div>
+        </div>
+            
+        </div>
+
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-tachometer-fast-alt"></i>
+                    <span class="text">TOTAL</span>
+                </div>
+                <div class="boxes">
+                    <div class="box box1">
+                        <i class='bx bx-user' ></i>
+                        <span class="text">User</span>
+                        <span class="number"></span>
+                    </div>
+                    <div class="box box2">
+                        <i class="uil uil-comments"></i>
+                        <span class="text">Order</span>
+                        <span class="number"></span>
+                    </div>
+                    <div class="box box3">
+                        <i class='bx bx-user-x'></i>
+                        <span class="text">Cancel</span>
+                        <span class="number"></span>
+                    </div>
+                </div>
+        </div>
+        <div>
+            <h2>TBEAR CHART</h2>
+        </div>
+        <div class="graphBox">
+            <div class="box">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="box">
+                <canvas id="earn"></canvas>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        get,
+        child,remove,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyAp38us8jaWEkSeLrJMNQ7Wo8CA4S5oizU",
+        authDomain: "webtb-3c6e6.firebaseapp.com",
+        databaseURL: "https://webtb-3c6e6-default-rtdb.firebaseio.com",
+        projectId: "webtb-3c6e6",
+        storageBucket: "webtb-3c6e6.appspot.com",
+        messagingSenderId: "16618818372",
+        appId: "1:16618818372:web:83106e18c28be09102e511",
+        measurementId: "G-6X13QF9K9Q"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+        const totalUserBox = document.querySelector('.box1 .number');
+        const orderBox = document.querySelector('.box2 .number');
+        const totalCancelBox = document.querySelector('.box3 .number');
+        // Lấy dữ liệu từ cả hai bảng
+        const usersRef = ref(database, 'User/' );
+        const ordersRef = ref(database, 'Order/' );
+
+        function calculateTotalEarn() {
+            return new Promise((resolve, reject) => {
+            let totalEarnTrue = 0;
+            let totalEarnFalse = 0;
+        
+            onValue(ordersRef, (snapshot) =>{
+                snapshot.forEach((childSnapshot) => {
+                const order = childSnapshot.val();
+                const price = Number(order.Price) || 0;
+                if (order.Payment === "true") {
+                    totalEarnTrue += price;
+                }  
+                if(order.Payment === "false" || order.Payment === "cancel"){
+                    totalEarnFalse += price;
+                }
+                });
+                console.log('Total Earn (True):', totalEarnTrue);
+                console.log('Total Earn (False):', totalEarnFalse);
+                resolve({ totalEarnTrue, totalEarnFalse });
+            });
+            });
+        }
+
+        
+        onValue(usersRef, (snapshot) => {
+            const usersData = snapshot.val();
+            if (usersData) {
+                // Cập nhật giá trị của box Total User
+                totalUserBox.textContent = Object.keys(usersData).length; // Sử dụng độ dài của dữ liệu người dùng từ Firebase
+
+                // Cập nhật giá trị của box Order (tương tự cho Total Cancel)
+                // Ví dụ: totalCancelBox.textContent = totalCancelData.length;
+            }
+        });
+        onValue(ordersRef, (snapshot) => {
+            const ordersData = snapshot.val();
+            if (ordersData) {
+                // Cập nhật giá trị của box Order
+                orderBox.textContent = Object.keys(ordersData).length;; // Sử dụng độ dài của dữ liệu đơn hàng từ Firebase
+
+                // Tương tự, bạn có thể cập nhật giá trị của box Total Cancel ở đây.
+            }
+        }); 
+
+        onValue(ordersRef, (snapshot) => {
+            const ordersData = snapshot.val();
+            if (ordersData) {
+                // Đếm và cập nhật giá trị của box Total Cancel
+                const totalCancelCount = Object.values(ordersData).reduce((count, order) => {
+                    if (order.Payment === "cancel") {
+                        return count + 1;
+                    }
+                    return count;
+                }, 0);
+                totalCancelBox.textContent = totalCancelCount;
+            }
+        });
+
+        const chartData = {
+        labels: ['Users', 'Orders'],
+        datasets: [
+            {
+            label: 'Count',
+            data: [0, 0], // Khởi tạo dữ liệu ban đầu là 0
+            backgroundColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54,162,325,1)',
+            ],
+            borderWidth: 1,
+            },
+        ],  
+        };
+
+        onValue(usersRef, (snapshot) => {
+        const usersData = snapshot.val();
+        if (usersData) {
+            const userCount = Object.keys(usersData).length; // Số lượng người dùng
+            chartData.datasets[0].data[0] = userCount; // Cập nhật dữ liệu người dùng
+            myChart.update(); // Cập nhật biểu đồ
+        }
+        });
+
+        onValue(ordersRef, (snapshot) => {
+        const ordersData = snapshot.val();
+        if (ordersData) {
+            const orderCount = Object.keys(ordersData).length; // Số lượng đơn hàng
+            chartData.datasets[0].data[1] = orderCount; // Cập nhật dữ liệu đơn hàng
+            myChart.update(); // Cập nhật biểu đồ
+        }
+        });
+
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: chartData,
+        options: {
+            scales: {
+            y: {
+                beginAtZero: true,
+            },
+            },
+        },
+        });
+
+
+        calculateTotalEarn()
+            .then((totals) => {
+                const totalEarnTrue = totals.totalEarnTrue;
+                const totalEarnFalse = totals.totalEarnFalse;
+                
+                // Gọi hàm để vẽ biểu đồ và truyền giá trị vào
+                createChart(totalEarnTrue, totalEarnFalse);
+            })
+            .catch((error) => {
+                console.error('Lỗi khi tính toán tổng thu nhập:', error);
+            });
+
+            function createChart(totalEarnTrue, totalEarnFalse) {
+            // Lấy tham chiếu đến thẻ canvas
+            const canvas = document.getElementById('earn');
+
+            // Tạo dữ liệu cho biểu đồ
+            const data = {  
+                labels: ['Total Earn', 'Total False/Canel'],
+                datasets: [{
+                label: "EARNING",
+                data: [totalEarnTrue, totalEarnFalse],
+                backgroundColor: ['#FC79B2', '#38E8DF'],
+                borderWidth: 1,
+                }]
+            };
+
+            // Tạo biểu đồ
+            const ctx = canvas.getContext('2d');
+            const earnChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: {
+                scales: {
+                    y: {
+                    beginAtZero: true
+                    }
+                }
+                }
+            });
+            }
+
+                </script>
+        <script src="admin.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="myChart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TBEAR</title>
+    <link rel="icon" href="../EXE_web/Icon App.png" type="image/x-icon">
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body>
+    <div class="overlay" id="overlay"></div>
+    <!-- Phần logo với header -->
+    <div class="background">
+      <div class="container">
+        <div class="left-container">
+          <div class="logo">
+            <a href="">
+              <img class="logo-png" src="../EXE/tbear.png" alt="" />
+            </a>
+          </div>
+        </div>
+        <div class="middle-container">
+          <div class="navbar-container">
+            <nav class="navbar">
+              <a href="">Trang chủ</a>
+              <a href="#gioithieu">Giới thiệu</a>
+              <a href="#dichvu">Dịch vụ</a>
+              <a href="#goi">Gói</a>
+            </nav>
+          </div>
+        </div>
+        <div class="right-container">
+          <div class="btn-box">
+            <nav></nav>
+          </div>
+        </div>
+      </div>
+      <div class="body-web">
+        <!-- Loging and register -->
+        <div class="login-container">
+          <div class="wrapper">
+            <span class="icon-close">
+              <ion-icon name="close-outline"></ion-icon>
+            </span>
+            <div class="form-box login">
+              <h2>Đăng Nhập</h2>
+              <form action="#">
+                <div class="input-box">
+                  <span class="icon">
+                    <ion-icon name="mail-outline"></ion-icon>
+                  </span>
+                  <input type="Email" id="email" required />
+                  <label>Tên người dùng/Email</label>
+                </div>
+                <div class="input-box">
+                  <span class="icon">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                  </span>
+                  <input type="password" id="password" required />
+                  <label>Mật khẩu</label>
+                </div>
+                <div class="remember-forgot">
+                  <label><input type="checkbox" />Ghi nhớ</label>
+                  <a href="#">Quên mật khẩu ?</a>
+                </div>
+                <button type="submit" class="btn" id="loginbtn">Đăng nhập</button>
+                <div class="login-register">
+                  <p>
+                    Chưa có tài khoản ?
+                    <a href="#" class="register-link">Đăng kí</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+            <!-- Register -->
+            <div class="form-box register">
+              <h2>Đăng Kí</h2>
+              <form action="#">
+                <div class="input-box">
+                  <span class="icon">
+                    <ion-icon name="person-outline"></ion-icon>
+                  </span>
+                  <input type="Text" id="username" required />
+                  <label>Tên</label>
+                </div>
+                <div class="input-box">
+                  <span class="icon">
+                    <ion-icon name="mail-outline"></ion-icon>
+                  </span>
+                  <input type="Email" id="reEmail" required />
+                  <label>Tên người dùng/Email</label>
+                </div>
+                <div class="input-box">
+                  <span class="icon">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                  </span>
+                  <input type="password" id="rePassword" required />
+                  <label>Mật khẩu</label>
+                </div>
+                <div class="remember-forgot">
+                  <label
+                    ><input type="checkbox" />Đồng ý với điều khoản sử dụng</label
+                  >
+                </div>
+                <button type="submit" class="btn" id="registerbtn">
+                  Đăng kí
+                </button>
+                <div class="login-register">
+                  <p>
+                    Đã có tài khoản ?
+                    <a href="#" class="login-link">Đăng nhập</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="body-container">
+          <!-- Phần hình ảnh minh họa -->
+          <div class="img-container">
+            <div class="img-container-middle">
+              <img src="../EXE/image 3.png" alt="" />
+              <img src="../EXE/image 4.png" alt="" />
+              <img src="../EXE/image 5.png" alt="" />
+            </div>
+          </div>
+          <!-- Phần giới thiệu và các phương tiện xã hội -->
+          <div class="content-header">
+            <header>Giới Thiệu</header>
+          </div>
+          <div class="intro-container" id="gioithieu">
+            <p>
+              Ekip TBEAR: D.O.P & Editor có nhân sự lên đến 25 thành viên với
+              kinh nghiệm từ 2 năm,họ ở nhiều vị trí và đảm nhiệm khác nhau như
+              quay, dựng, thiết kế, ánh sáng, hiện trường... nhầm mục đích phục
+              vụ mọi nhu cầu cần thiết của khách hàng.Ekip TBEAR: D.O.P & Editor
+              có studio mini để quay chuyên cho các sản phẩm nước hoa, mỹ phẩm,
+              đồ điện tử, giầy dép ...v..v... Cho các nền tảng tiktok, youtube,
+              facebook...
+            </p>
+          </div>
+          <div class="sosial-logo">
+            <nav class="nav-logo">
+              <a href="https://www.facebook.com/TbearStudio.MediaProduction">
+                <img src="../EXE_web/facebook.png" alt="" />
+              </a>
+              <a href="">
+                <img src="../EXE_web/instagram.png" alt="" />
+              </a>
+              <a href="">
+                <img src="../EXE_web/youtube.png" alt="" />
+              </a>
+              <a href="">
+                <img src="../EXE_web/tiktok.png" alt="" />
+              </a>
+            </nav>
+          </div>
+          <!-- phần Booking -->
+          <div class="booking">
+            <header>BOOKING</header>
+          </div>
+          <section class="content-booking">
+            <div class="content-booking-box">
+              <div class="content-booking-content">
+                <p>
+                  Truyền thông hiệu quả là chìa khóa để ghi điểm trong lòng
+                  khách hàng và xây dựng lòng tin vững chắc.
+                </p>
+                <div class="tbn-box-content">
+                  <a href="">Tìm hiểu thêm</a>
+                  <a href="">Đặt lịch</a>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Combo -->
+          <div class="combo" id="dichvu">
+            <header class="combo-header">COMBO</header>
+            <div class="img-combo">
+              <img src="../EXE_web/combo1.png" alt="" />
+              <img src="../EXE_web/combo2.png" alt="" />
+              <img src="../EXE_web/combo3.png" alt="" />
+            </div>
+            <div class="decripton-combo">
+              <p>Sự kiện @ Sinh nhật @ Đám cưới</p>
+              <p>Phim @ WebDrama @ TVC</p>
+              <p>Chụp ảnh @ Sosical Media @ Design</p>
+            </div>
+          </div>
+          <!-- Ưu đãi -->
+          <div class="preferential" id="goi">
+            <header class="content-preferntial">Ưu đãi hấp dẫn</header>
+            <div class="img-preferential">
+              <img src="../EXE_web/discount1.png" alt="" />
+              <img src="../EXE_web/discount2.png" alt="" />
+              <img src="../EXE_web/discount3.png" alt="" />
+            </div>
+          </div>
+          <!-- Tính năng -->
+          <div class="funtion">
+            <header class="content-function">Tính năng nổi bật</header>
+            <div class="img-function">
+              <img src="..//EXE_web/discount4.png" alt="" />
+              <img src="../EXE_web/discount5.png" alt="" />
+              <img src="../EXE_web/discount6.png" alt="" />
+            </div>
+          </div>
+          <!-- Download -->
+          <div class="tbear-app">
+            <div class="tbear-app-left">
+              <div class="tbear-app-left-box">
+                <header>Download TBEAR App</header>
+                <div class="tbear-app-left-inbox">
+                  <img src="../EXE_web/qr_code.png" alt="" />
+                  <p>OR</p>
+                  <img src="../EXE_web/app.png" alt="" />
+                </div>
+              </div>
+            </div>
+            <div class="tbear-app-right">
+              <div class="tbear-app-right-box">
+                <img src="../EXE_web/phone.png" alt="" />
+              </div>
+            </div>
+          </div>
+          <!-- Phần cuối -->
+          <div class="about">
+            <div class="about-box">
+              <div class="tbear-logo">
+                <img src="../EXE/Techlogo.png" alt="" />
+              </div>
+              <div class="content-about">
+                <h3>Nội dung</h3>
+                <h3>Về chúng tôi</h3>
+                <h3>Hỗ trợ</h3>
+              </div>
+              <div class="icon-about">
+                <nav>
+                  <a href="">
+                    <img src="../EXE_web/image 13.png" alt="" />
+                  </a>
+                  <a href="">
+                    <img src="../EXE_web/image 14.png" alt="" />
+                  </a>
+                  <a href="">
+                    <img src="../EXE_web/image 15.png" alt="" />
+                  </a>
+                  <a href="">
+                    <img src="../EXE_web/image 16.png" alt="" />
+                  </a>
+                  <a href="">
+                    <img src="../EXE_web/image 17.png" alt="" />
+                  </a>
+                </nav>
+              </div>
+              <div class="text-about">
+                2023 | Media Company | All Rights Reserverd
+              </div>
+            </div>
+          </div>
+          <!-- div cuối -->
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        get,
+        child,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyAp38us8jaWEkSeLrJMNQ7Wo8CA4S5oizU",
+        authDomain: "webtb-3c6e6.firebaseapp.com",
+        projectId: "webtb-3c6e6",
+        storageBucket: "webtb-3c6e6.appspot.com",
+        messagingSenderId: "16618818372",
+        appId: "1:16618818372:web:83106e18c28be09102e511",
+        measurementId: "G-6X13QF9K9Q",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      const auth = getAuth();
+
+      // function register(){
+      //   document.getElementById("registerbtn").addEventListener("click", function (e) {
+      //   e.preventDefault();
+      //   set(ref(db, "user/" + document.getElementById("username").value), {
+      //     username: document.getElementById("username").value,
+      //     email: document.getElementById("reEmail").value,
+      //     password: document.getElementById("rePassword").value,
+      //   });
+      //   alert("Login Sucessfull !");
+      // });
+      // }
+      // register();
+      document
+        .querySelector(".icon-close")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+
+          // Làm sạch các trường nhập
+          document.getElementById("email").value = "";
+          document.getElementById("password").value = "";
+          document.getElementById("username").value = "";
+          document.getElementById("reEmail").value = "";
+          document.getElementById("rePassword").value = "";
+
+          // Xóa bất kỳ dữ liệu khác bạn muốn xóa ở đây
+          // ...
+        });
+
+      // Lắng nghe sự kiện click vào nút đăng ký
+      document
+        .getElementById("registerbtn")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+
+          // Lấy thông tin từ form đăng ký
+          const username = document.getElementById("username").value;
+          const email = document.getElementById("reEmail").value;
+          const password = document.getElementById("rePassword").value;
+
+          // Đăng ký người dùng bằng Firebase Authentication
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              // Lấy thông tin người dùng đã đăng ký
+              const user = userCredential.user;
+
+              // Thêm thông tin người dùng vào cơ sở dữ liệu Realtime
+              set(ref(database, "user/" + user.uid), {
+                email: email,
+                password: password,
+                role: "user",
+              })
+                .then(() => {
+                  // Đăng ký thành công
+                  alert("Đăng ký thành công!");
+                  // Redirect hoặc thực hiện các thao tác khác ở đây
+                })
+                .catch((error) => {
+                  alert(error);
+                  console.error(
+                    "Lỗi khi thêm thông tin người dùng vào cơ sở dữ liệu:",
+                    error
+                  );
+                });
+            })
+            .catch((error) => {
+              alert("Email đã được sử dụng!");
+              console.error("Lỗi khi đăng ký tài khoản:", error);
+            });
+        });
+
+      // Lắng nghe sự kiện click vào nút "Đăng nhập"
+      document
+        .getElementById("loginbtn")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+
+          // Lấy thông tin đăng nhập từ form
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          // Đăng nhập bằng Firebase Authentication
+          signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              // Đăng nhập thành công
+              const user = userCredential.user;
+
+              // Lấy thông tin của người dùng từ cơ sở dữ liệu
+              const starCountRef = ref(database, "user/" + user.uid);
+              onValue(starCountRef, (snapshot) => {
+                const userData = snapshot.val();
+                console.log(userData.role);
+                if (userData.role === "user") {
+                  // Đúng vai trò "user", chuyển hướng đến trang cụ thể
+                  window.location.href = "index.html";
+                } else if (userData.role === "admin") {
+                  // Đúng vai trò "admin", chuyển hướng đến trang quản trị
+                  window.location.href = "admin/admin.html";
+                } else {
+                  // Người dùng không có vai trò hoặc vai trò không hợp lệ
+                  console.error("Không có quyền truy cập.");
+                }
+              }).catch((error) => {
+                console.error(
+                  "Lỗi khi lấy thông tin người dùng từ cơ sở dữ liệu:",
+                  error
+                );
+              });
+            })
+            .catch((error) => {
+              console.error("Lỗi khi đăng nhập:", error);
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+    <script src="login.js" type="module"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

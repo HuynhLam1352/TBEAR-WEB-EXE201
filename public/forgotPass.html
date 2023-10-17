@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TBEAR</title>
+    <link rel="icon" href="EXE_web/Icon App.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="forgotPassword.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <span class="icon-close">
+          <ion-icon name="close-outline"></ion-icon>
+        </span>
+        <div class="form-box login">
+          <h2>Đặt Lại Mật Khẩu</h2>
+          <form action="#">
+            <div class="input-box">
+              <span class="icon">
+                <ion-icon name="mail-outline"></ion-icon>
+              </span>
+              <input type="Email" id="email" required />
+              <label>Email</label>
+            </div>
+            <button type="submit" class="btn" id="loginbtn">Xác nhận</button>
+            <div class="login-register">
+              <p>
+                <a href="index.html" class="register-link">Trang chủ</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+      import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+      import {
+        getAuth,
+        sendPasswordResetEmail,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyAp38us8jaWEkSeLrJMNQ7Wo8CA4S5oizU",
+        authDomain: "webtb-3c6e6.firebaseapp.com",
+        projectId: "webtb-3c6e6",
+        storageBucket: "webtb-3c6e6.appspot.com",
+        messagingSenderId: "16618818372",
+        appId: "1:16618818372:web:83106e18c28be09102e511",
+        measurementId: "G-6X13QF9K9Q",
+      };
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      const auth = getAuth();
+      let email = document.getElementById("email");
+      const confirm = document.querySelector(".btn");
+      confirm.addEventListener("click", function (e) {
+        e.preventDefault();
+        sendPasswordResetEmail(auth, email.value)
+          .then(() => {
+            email = "";
+
+            alert("Thành công! Mật khẩu của bạn đã được đặt lại! Hãy kiểm tra email của bạn.");
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            alert("Lỗi", "Vui lòng kiểm tra lại email hoặc mật khẩu của bạn đã được reset")
+          });
+      });
+    </script>
+  </body>
+</html>
