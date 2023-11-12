@@ -121,12 +121,23 @@
                 <canvas id="earn"></canvas>
             </div>
         </div>
+
+        <div>
+            <h2>TBEAR CHART</h2>
+        </div>
+        <div class="graphBox2">
+            <div class="box">
+                <canvas id="myChart1"></canvas>
+            </div>
+            <div class="box">
+                <canvas id="earn1"></canvas>
+            </div>
+        </div>
     </section>
 
 
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
       import {
         getDatabase,
@@ -160,9 +171,18 @@
         const totalUserBox = document.querySelector('.box1 .number');
         const orderBox = document.querySelector('.box2 .number');
         const totalCancelBox = document.querySelector('.box3 .number');
-        // Lấy dữ liệu từ cả hai bảng
         const usersRef = ref(database, 'User/' );
         const ordersRef = ref(database, 'Order/' );
+
+        function formatDate(firebaseDate) {
+            const date = new Date(firebaseDate);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${day}/${month}/${year}`;
+        }
+
+
 
         function calculateTotalEarn() {
             return new Promise((resolve, reject) => {
@@ -191,27 +211,19 @@
         onValue(usersRef, (snapshot) => {
             const usersData = snapshot.val();
             if (usersData) {
-                // Cập nhật giá trị của box Total User
-                totalUserBox.textContent = Object.keys(usersData).length; // Sử dụng độ dài của dữ liệu người dùng từ Firebase
-
-                // Cập nhật giá trị của box Order (tương tự cho Total Cancel)
-                // Ví dụ: totalCancelBox.textContent = totalCancelData.length;
+                totalUserBox.textContent = Object.keys(usersData).length;
             }
         });
         onValue(ordersRef, (snapshot) => {
             const ordersData = snapshot.val();
             if (ordersData) {
-                // Cập nhật giá trị của box Order
-                orderBox.textContent = Object.keys(ordersData).length;; // Sử dụng độ dài của dữ liệu đơn hàng từ Firebase
-
-                // Tương tự, bạn có thể cập nhật giá trị của box Total Cancel ở đây.
+                orderBox.textContent = Object.keys(ordersData).length;;
             }
         }); 
 
         onValue(ordersRef, (snapshot) => {
             const ordersData = snapshot.val();
             if (ordersData) {
-                // Đếm và cập nhật giá trị của box Total Cancel
                 const totalCancelCount = Object.values(ordersData).reduce((count, order) => {
                     if (order.Payment === "cancel") {
                         return count + 1;
@@ -221,13 +233,12 @@
                 totalCancelBox.textContent = totalCancelCount;
             }
         });
-
         const chartData = {
         labels: ['Users', 'Orders'],
         datasets: [
             {
             label: 'Count',
-            data: [0, 0], // Khởi tạo dữ liệu ban đầu là 0
+            data: [0, 0], 
             backgroundColor: [
                 'rgba(255,99,132,1)',
                 'rgba(54,162,325,1)',
@@ -240,18 +251,18 @@
         onValue(usersRef, (snapshot) => {
         const usersData = snapshot.val();
         if (usersData) {
-            const userCount = Object.keys(usersData).length; // Số lượng người dùng
-            chartData.datasets[0].data[0] = userCount; // Cập nhật dữ liệu người dùng
-            myChart.update(); // Cập nhật biểu đồ
+            const userCount = Object.keys(usersData).length; 
+            chartData.datasets[0].data[0] = userCount; 
+            myChart.update();
         }
         });
 
         onValue(ordersRef, (snapshot) => {
         const ordersData = snapshot.val();
         if (ordersData) {
-            const orderCount = Object.keys(ordersData).length; // Số lượng đơn hàng
-            chartData.datasets[0].data[1] = orderCount; // Cập nhật dữ liệu đơn hàng
-            myChart.update(); // Cập nhật biểu đồ
+            const orderCount = Object.keys(ordersData).length; 
+            chartData.datasets[0].data[1] = orderCount; 
+            myChart.update(); 
         }
         });
 
@@ -270,24 +281,17 @@
         },
         });
 
-
         calculateTotalEarn()
             .then((totals) => {
                 const totalEarnTrue = totals.totalEarnTrue;
                 const totalEarnFalse = totals.totalEarnFalse;
-                
-                // Gọi hàm để vẽ biểu đồ và truyền giá trị vào
                 createChart(totalEarnTrue, totalEarnFalse);
             })
             .catch((error) => {
                 console.error('Lỗi khi tính toán tổng thu nhập:', error);
             });
-
             function createChart(totalEarnTrue, totalEarnFalse) {
-            // Lấy tham chiếu đến thẻ canvas
             const canvas = document.getElementById('earn');
-
-            // Tạo dữ liệu cho biểu đồ
             const data = {  
                 labels: ['Total Earn', 'Total False/Canel'],
                 datasets: [{
@@ -298,7 +302,6 @@
                 }]
             };
 
-            // Tạo biểu đồ
             const ctx = canvas.getContext('2d');
             const earnChart = new Chart(ctx, {
                 type: 'bar',
@@ -313,7 +316,123 @@
             });
             }
 
-                </script>
+            var ctx2 = document.getElementById('myChart1').getContext('2d');
+            var chart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            
+            onValue(ordersRef, (snapshot) => {
+                const ordersData = snapshot.val();
+                var registrationCountByDate1 = {};
+
+                for (var orderId in ordersData) {
+                    var order = ordersData[orderId];
+                    var orderType = order.Service.Category;
+                    console.log(orderType);
+                    if (orderType) {
+                        if (registrationCountByDate1[orderType]) {
+                            registrationCountByDate1[orderType]++;
+                        } else {
+                            registrationCountByDate1[orderType] = 1;
+                        }
+                    }
+                }
+
+                const datesInMonth = [];
+                const currentDate = new Date();
+                currentDate.setDate(1);
+                currentDate.setHours(0, 0, 0, 0);
+                const lastDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+                while (currentDate <= lastDate) {
+                    datesInMonth.push(formatDate(currentDate));
+                    currentDate.setDate(currentDate.getDate() + 1);
+                }
+                
+                const chartData2 = {
+                    labels: Object.keys(registrationCountByDate1), 
+                    datasets: [{
+                        label: 'Số Order theo Loại',
+                        data: Object.values(registrationCountByDate1), 
+                        backgroundColor: ["#FFFF99", "#66FFFF", "#FFCCFF"],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                };
+
+            
+                if (chart2) {
+                    chart2.data = chartData2;    
+                    chart2.update(); 
+                }
+            });
+
+            var ctx1 = document.getElementById('earn1').getContext('2d');
+            var chart = new Chart(ctx1, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            
+            onValue(usersRef, (snapshot) => {
+                const usersData = snapshot.val();
+                var registrationCountByDate = {};
+
+                for (var userId in usersData) {
+                    var user = usersData[userId];
+                    if (user.start) {
+                        var startDate = user.start;
+                        if (registrationCountByDate[startDate]) {
+                            registrationCountByDate[startDate]++;
+                        } else {
+                            registrationCountByDate[startDate] = 1;
+                        }
+                    }
+                }
+
+                const datesInMonth = [];
+                const currentDate = new Date();
+                currentDate.setDate(1);
+                currentDate.setHours(0, 0, 0, 0);
+                const lastDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+
+                while (currentDate <= lastDate) {
+                    datesInMonth.push(formatDate(currentDate));
+                    currentDate.setDate(currentDate.getDate() + 1);
+                }
+                
+                const chartData1 = {
+                    labels: datesInMonth,
+                    datasets: [{
+                        label: 'Số người dùng đăng ký',
+                        data: datesInMonth.map((date) => registrationCountByDate[date] || 0),
+                        backgroundColor: '#FF6666',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                };
+                if (chart) {
+                    chart.data = chartData1;    
+                    chart.update(); 
+                }
+            });
+        </script>
         <script src="admin.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="myChart.js"></script>

@@ -113,7 +113,6 @@
 
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
       import {
         getDatabase,
@@ -143,16 +142,11 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
-
-        // Lấy tham chiếu đến cơ sở dữ liệu Firebase
-
-        // Lấy dữ liệu từ Firebase và hiển thị nó trong bảng
         const customerDataRef = ref(database, 'User/' );
         let childKey = null;
         let initialData = {};
         onValue(customerDataRef, (snapshot) => {
             const userData = snapshot.val();
-            // userData sẽ chứa thông tin của người dùng, bao gồm email, password và role
             displayDataInTableHome(userData);
             const ordersRef = ref(database, "Order/");
 
@@ -167,13 +161,9 @@
         
         function displayDataInTableHome(userData) {
             const customerDataDiv = document.getElementById('homeContent');
-            customerDataDiv.innerHTML = ''; // Xóa bất kỳ nội dung cũ nào
-
-            // Tạo bảng
+            customerDataDiv.innerHTML = ''; 
             const table = document.createElement('table');
             table.classList.add('customer-table');
-
-            // Tạo tiêu đề cho bảng
             const thead = document.createElement('thead');
             const headerRow = document.createElement('tr');
             const headers = ['ID', 'Tên người dùng', 'Email', 'Địa chỉ', 'Điện thoại' ];
@@ -187,13 +177,10 @@
             thead.appendChild(headerRow);
             table.appendChild(thead);
 
-
-            // Tạo dòng dữ liệu cho bảng
             for (const key in userData) {
                 if (userData.hasOwnProperty(key)) {
                     const row = document.createElement('tr');
                     const rowData = userData[key];
-                    // Hiển thị thông tin từ Firebase vào các ô trong bảng
                     const idCell = document.createElement('td');
                     idCell.textContent = key; 
 
@@ -209,14 +196,11 @@
                     const phoneCell = document.createElement('td');
                     phoneCell.textContent = rowData.Phone;
 
-                    // Tạo nút chỉnh sửa và gán sự kiện
                     const editButton = document.createElement('button');
                     editButton.textContent = 'Edit';
                     editButton.addEventListener('click', () => {
                         displayEditFormHome(key, rowData);
                     });
-
-                    // Thêm các ô dữ liệu và nút vào dòng
                     row.appendChild(idCell);
                     row.appendChild(nameCell);
                     row.appendChild(emailCell);
@@ -230,14 +214,10 @@
                     deleteButton.addEventListener('click', () => {
                         const shouldDelete = confirm('Are you sure you want to delete this user?');
                         if (shouldDelete) {
-                            deleteUser(key); // Pass the user's key (UID) for deletion
+                            deleteUser(key); 
                         }
                     });
-
-                    // const deleteCell = document.createElement('td');
-                    // deleteCell.appendChild(deleteButton);
                     row.appendChild(deleteButton);
-                            // Thêm dòng vào bảng
                             table.appendChild(row);
                         }
                     }
@@ -249,25 +229,18 @@
         return currentValue !== initialData[fieldName];
         }
         function updateOrders(userId, updatedUserData) {
-            // Lấy tham chiếu đến các đơn hàng
             const ordersRef = ref(database, "Order/");
 
             onValue(ordersRef, (snapshot) => {
                 const orders = snapshot.val();
                 for (let orderId in orders) {
                     const order = orders[orderId];
-                    // Kiểm tra Order có trường "UserID" trùng với userId truyền vào hay không
                     if (order.UserID == userId) {
-                        // Tạo bản sao của Order
                         const updatedOrder = { ...order};
-
-                        // Cập nhật các trường dữ liệu bạn muốn
                         updatedOrder.User_name = updatedUserData.User_name;
                         updatedOrder.Email = updatedUserData.Email;
                         updatedOrder.Address = updatedUserData.Address;
                         updatedOrder.Phone = updatedUserData.Phone;
-
-                        // Cập nhật Order vào database
                         const orderRef = ref(database, `Order/${orderId}`);
                         set(orderRef, updatedOrder).then(() => {
                             console.log(`Order ${orderId} updated successfully.`);
@@ -285,37 +258,24 @@
             editFormDiv.style.display = 'block';
 
             const form = document.createElement('form');
-
-            // Tạo trường dữ liệu cho Tên người dùng
             const nameInput = createInput('text', 'Tên Người dùng', user.User_name);
-
-            // Tạo trường dữ liệu cho Email
             const emailInput = createInput('email', 'Email', user.Email);
-
-            // Tạo trường dữ liệu cho Dịch vụ
             const addressInput = createInput('text', 'Địa chỉ', user.Address);
-
-            // Tạo trường dữ liệu cho Trạng thái
             const phoneInput = createInput('text', 'Điện thoại', user.Phone);
-
-            // Tạo nút cập nhật
             const updateButton = document.createElement('button');
             updateButton.textContent = 'Cập nhật';
             updateButton.addEventListener('click', () => {
-                // Xử lý cập nhật dữ liệu người dùng vào Firebase
                 const updatedUserData = {
                     User_name: nameInput.value !== '' ? nameInput.value : initialData.User_name,
                     Email: emailInput.value !== '' ? emailInput.value : initialData.Email,
                     Address: addressInput.value !== '' ? addressInput.value : initialData.Address,
                     Phone: phoneInput.value !== '' ? phoneInput.value : initialData.Phone,
-                    password: initialData.password || '', // Giữ nguyên giá trị password ban đầu
-                    role: initialData.role ||'', // Giữ nguyên giá trị role ban đầu
+                    password: initialData.password || '',
+                    role: initialData.role ||'', 
                 };
-
                 const userRef = ref(database, `User/${uid}`);
                 set(userRef, updatedUserData)
                     .then(() => {
-                        // Cập nhật thành công, ẩn form chỉnh sửa
                         editFormDiv.style.display = 'none';
                         
                     })
@@ -325,20 +285,15 @@
                 console.log(uid);
                 updateOrders(uid, updatedUserData);
             });
-            
-            // Thêm các trường dữ liệu và nút vào form
             form.appendChild(nameInput);
             form.appendChild(emailInput);
             form.appendChild(addressInput);
             form.appendChild(phoneInput);
             form.appendChild(updateButton);
 
-            // Xóa nội dung cũ và thêm form vào div chỉnh sửa
             editFormDiv.innerHTML = '';
             editFormDiv.appendChild(form);
         }
-
-        // Hàm tạo trường dữ liệu
         function createInput(type, placeholder, value) {
             const input = document.createElement('input');
             input.setAttribute('type', type);
@@ -357,9 +312,6 @@
                 console.error('Error deleting user:', error);
         });
     }
-    // Order
-    
-
     </script>
     <script src="admin.js"></script>
 </body>

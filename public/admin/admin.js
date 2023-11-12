@@ -33,9 +33,6 @@ sidebarToggle.addEventListener("click", () => {
 })
 
 const logoutLink = document.querySelector('.logout-mode a');
-
-// Gán sự kiện click cho nút "Logout"
 logoutLink.addEventListener('click', () => {
-    // Chuyển hướng đến trang landing bằng đường dẫn tương đối hoặc tuyệt đối
-    window.location.href = '../index.html'; // Điều chỉnh đường dẫn tương đối hoặc tuyệt đối dựa trên vị trí của trang landing
+    window.location.href = '../index.html';
 });

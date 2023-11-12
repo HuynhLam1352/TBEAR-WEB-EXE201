@@ -31,8 +31,13 @@
         </div>
         <div class="right-container">
           <div class="btn-box">
-            <nav></nav>
+            <a href="../index.html">
+              <button class="btnLogin-popup">Đăng xuất</button>
+            </a>
+            <a href="https://drive.google.com/file/d/1wlX-Qm56EykS58TufPjEYQPw_ulMzgVK/view?fbclid=IwAR0-v0tgKRytWy6oWt_lWi4Ylrnzotz_VEH9_6DAlnPDTLrJxhBKRkmFZmg
+            " class="button-up"><button class="btn-popup">Tải APK</button></a>
           </div>
+        </div>
         </div>
       </div>
       <div class="body-web">
@@ -227,7 +232,7 @@
           <div class="about">
             <div class="about-box">
               <div class="tbear-logo">
-                <img src="../EXE/Techlogo.png" alt="" />
+                <img src="../EXE_web/logo.png" alt="" />
               </div>
               <div class="content-about">
                 <h3>Nội dung</h3>
@@ -263,7 +268,6 @@
       </div>
     </div>
     <script type="module">
-      // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
       import {
         getDatabase,
@@ -278,12 +282,6 @@
         signInWithEmailAndPassword,
         createUserWithEmailAndPassword,
       } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
         apiKey: "AIzaSyAp38us8jaWEkSeLrJMNQ7Wo8CA4S5oizU",
         authDomain: "webtb-3c6e6.firebaseapp.com",
@@ -297,62 +295,34 @@
       const app = initializeApp(firebaseConfig);
       const database = getDatabase(app);
       const auth = getAuth();
-
-      // function register(){
-      //   document.getElementById("registerbtn").addEventListener("click", function (e) {
-      //   e.preventDefault();
-      //   set(ref(db, "user/" + document.getElementById("username").value), {
-      //     username: document.getElementById("username").value,
-      //     email: document.getElementById("reEmail").value,
-      //     password: document.getElementById("rePassword").value,
-      //   });
-      //   alert("Login Sucessfull !");
-      // });
-      // }
-      // register();
       document
         .querySelector(".icon-close")
         .addEventListener("click", function (event) {
           event.preventDefault();
 
-          // Làm sạch các trường nhập
           document.getElementById("email").value = "";
           document.getElementById("password").value = "";
           document.getElementById("username").value = "";
           document.getElementById("reEmail").value = "";
           document.getElementById("rePassword").value = "";
-
-          // Xóa bất kỳ dữ liệu khác bạn muốn xóa ở đây
-          // ...
         });
-
-      // Lắng nghe sự kiện click vào nút đăng ký
       document
         .getElementById("registerbtn")
         .addEventListener("click", function (event) {
           event.preventDefault();
-
-          // Lấy thông tin từ form đăng ký
           const username = document.getElementById("username").value;
           const email = document.getElementById("reEmail").value;
           const password = document.getElementById("rePassword").value;
-
-          // Đăng ký người dùng bằng Firebase Authentication
           createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-              // Lấy thông tin người dùng đã đăng ký
               const user = userCredential.user;
-
-              // Thêm thông tin người dùng vào cơ sở dữ liệu Realtime
               set(ref(database, "user/" + user.uid), {
                 email: email,
                 password: password,
                 role: "user",
               })
                 .then(() => {
-                  // Đăng ký thành công
                   alert("Đăng ký thành công!");
-                  // Redirect hoặc thực hiện các thao tác khác ở đây
                 })
                 .catch((error) => {
                   alert(error);
@@ -367,36 +337,24 @@
               console.error("Lỗi khi đăng ký tài khoản:", error);
             });
         });
-
-      // Lắng nghe sự kiện click vào nút "Đăng nhập"
       document
         .getElementById("loginbtn")
         .addEventListener("click", function (event) {
           event.preventDefault();
-
-          // Lấy thông tin đăng nhập từ form
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
-
-          // Đăng nhập bằng Firebase Authentication
           signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-              // Đăng nhập thành công
               const user = userCredential.user;
-
-              // Lấy thông tin của người dùng từ cơ sở dữ liệu
               const starCountRef = ref(database, "user/" + user.uid);
               onValue(starCountRef, (snapshot) => {
                 const userData = snapshot.val();
                 console.log(userData.role);
                 if (userData.role === "user") {
-                  // Đúng vai trò "user", chuyển hướng đến trang cụ thể
                   window.location.href = "index.html";
                 } else if (userData.role === "admin") {
-                  // Đúng vai trò "admin", chuyển hướng đến trang quản trị
                   window.location.href = "admin/admin.html";
                 } else {
-                  // Người dùng không có vai trò hoặc vai trò không hợp lệ
                   console.error("Không có quyền truy cập.");
                 }
               }).catch((error) => {

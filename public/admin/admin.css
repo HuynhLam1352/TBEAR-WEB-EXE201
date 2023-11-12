@@ -473,35 +473,31 @@ nav.close ~ .dashboard .top{
 
 /* Định dạng bảng */
 .customer-table {
-    width: 100%; /* Đảm bảo bảng chiếm toàn bộ khung */
-    border-collapse: collapse; /* Gộp đường viền của ô */
-    text-align: center; /* Căn giữa nội dung trong ô */
+    width: 100%; 
+    border-collapse: collapse; 
+    text-align: center; 
     border: 1px solid #ccc; 
 }
 
-/* Định dạng dòng tiêu đề */
 .customer-table thead th {
-    background-color: #f2f2f2; /* Màu nền của dòng tiêu đề */
-    padding: 10px; /* Khoảng cách giữa các cột */
-    text-align: center; /* Căn giữa nội dung trong ô */
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center; 
 }
 
-/* Định dạng các ô dữ liệu */
 .customer-table tbody td {
-    padding: 10px; /* Khoảng cách giữa các cột */
-    text-align: center; /* Căn giữa nội dung trong ô */
-    vertical-align: middle; /* Căn giữa theo chiều dọc */
+    padding: 10px; 
+    text-align: center; 
+    vertical-align: middle; 
 }
-
-/* Định dạng nút "Edit" */
 .customer-table button {
-    padding: 5px 10px; /* Khoảng cách và kích thước nút "Edit" */
+    padding: 5px 10px; 
 }
 
 
 .customer-table th,
 .customer-table td {
-    border: 1px solid #ccc; /* Đường viền cho các ô */
+    border: 1px solid #ccc; 
 }
 
 /* CSS */
@@ -513,23 +509,21 @@ nav.close ~ .dashboard .top{
     background-color: white;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    display: none; /* Ẩn form ban đầu */
+    display: none; 
     z-index: 1000;
-    transition: all 0.3s ease; /* Hiệu ứng mở và đóng */
+    transition: all 0.3s ease; 
   }
   
   #editForm.active {
-    display: block; /* Hiển thị form khi có class active */
+    display: block; 
   }
   
   /* style.css */
 .edit-form {
-    max-width: 600px; /* Điều chỉnh độ rộng tối đa của biểu mẫu */
-    margin: 0 auto;   /* Canh giữa biểu mẫu */
-    padding: 20px;    /* Thêm khoảng cách giữa biểu mẫu và khung */
+    max-width: 600px;
+    margin: 0 auto; 
+    padding: 20px;  
   }
-  
-  /* Tùy chỉnh các thành phần trong biểu mẫu */
   .edit-form input[type="text"],
   .edit-form input[type="email"],
   .edit-form textarea {

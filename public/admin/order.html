@@ -22,10 +22,7 @@
             <div class="logo-image">
                <img src="../EXE_web/logo.png" alt="">
             </div>
-
-            <!-- <span class="logo_name">TBEAR</span> -->
         </div>
-
         <div class="menu-items">
             <ul class="nav-links">
                 <li><a href="admin.html">
@@ -102,22 +99,16 @@
                     <span class="text">Recent Activity</span>
                 </div>
                 <div class="customer-data" id="homeContent">
-                    <!-- Nội dung cho Home -->
                 </div>
                 <div class="edit-form" id="homeEditForm" style="display: none;">
-                    <!-- Nội dung cho Home - edit-form -->
                 </div>
                 <div class="customer-data" id="userContent" style="display: none;">
-                    <!-- Nội dung cho User - customer-data -->
                 </div>
                 <div class="edit-form" id="userEditForm" style="display: none;">
-                    <!-- Nội dung cho User - edit-form -->
                 </div>
                 <div class="customer-data" id="flagContent" style="display: none;">
-                    <!-- Nội dung cho Flag - customer-data -->
                 </div>
                 <div class="edit-form" id="flagEditForm" style="display: none;">
-                    <!-- Nội dung cho Flag - edit-form -->
                 </div>
 
             </div>
@@ -126,7 +117,6 @@
 
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
       import {
         getDatabase,
@@ -156,16 +146,11 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
-
-        // Lấy tham chiếu đến cơ sở dữ liệu Firebase
-
-        // Lấy dữ liệu từ Firebase và hiển thị nó trong bảng
         const customerDataRef = ref(database, 'Order/' );
         let childKey = null;
         let initialData = {};
         onValue(customerDataRef, (snapshot) => {
             const userData = snapshot.val();
-            // userData sẽ chứa thông tin của người dùng, bao gồm email, password và role
             displayDataInTableHome(userData);
 
             const userRef = ref(database, "User/");
@@ -181,13 +166,10 @@
         
         function displayDataInTableHome(userData) {
             const customerDataDiv = document.getElementById('homeContent');
-            customerDataDiv.innerHTML = ''; // Xóa bất kỳ nội dung cũ nào
-
-            // Tạo bảng
+            customerDataDiv.innerHTML = ''; 
             const table = document.createElement('table');
             table.classList.add('customer-table');
 
-            // Tạo tiêu đề cho bảng
             const thead = document.createElement('thead');
             const headerRow = document.createElement('tr');
             const headers = ['OrderName', 'UserName', 'Category', 'Combo', 'Subservice', "Price" ,'Start', 'Status', 'Payment'];
@@ -201,13 +183,10 @@
             thead.appendChild(headerRow);
             table.appendChild(thead);
 
-
-            // Tạo dòng dữ liệu cho bảng
             for (const key in userData) {
                 if (userData.hasOwnProperty(key)) {
                     const row = document.createElement('tr');
                     const rowData = userData[key];
-                    // Hiển thị thông tin từ Firebase vào các ô trong bảng
                     const idCell = document.createElement('td');
                     idCell.textContent = rowData.Ordername; 
 
@@ -237,14 +216,12 @@
 
                     const lastStatus = Object.keys(rowData.Status).pop(); 
                     statusCell.textContent = rowData.Status[lastStatus];
-                    // Tạo nút chỉnh sửa và gán sự kiện
                     const editButton = document.createElement('button');
                     editButton.textContent = 'Edit';
                     editButton.addEventListener('click', () => {
                         displayEditFormHome(key, rowData);
                     });
 
-                    // Thêm các ô dữ liệu và nút vào dòng
                     row.appendChild(idCell);
                     row.appendChild(nameCell);
                     row.appendChild(categoryCell);
@@ -273,48 +250,17 @@
                     deleteButton.addEventListener('click', () => {
                         const shouldDelete = confirm('Are you sure you want to delete this user?');
                         if (shouldDelete) {
-                            deleteUser(key); // Pass the user's key (UID) for deletion
+                            deleteUser(key); 
                         }
                     });
                     
                     row.appendChild(deleteButton);
-                            // Thêm dòng vào bảng
                     table.appendChild(row);
                 }
             }
 
 
         }
-
-        // function updateUser(orderId, updatedUserData) {
-        //     // Lấy tham chiếu đến các đơn hàng
-        //     const userRef = ref(database, "User/");
-
-        //     onValue(userRef, (snapshot) => {
-        //         const users = snapshot.val();
-
-        //         for (let userId in users) {
-        //             console.log("User ID" + userId);
-        //             // Kiểm tra Order có userId trùng với userId truyền vào hay không
-        //             if (userId === orderId) {
-        //                 // Tạo bản sao của Order
-        //                 const user = users[userId];
-        //                 const updatedUser = { ...user};
-
-        //                 // Cập nhật các trường dữ liệu bạn muốn
-        //                 updatedUser.User_name = updatedUserData.User_name;
-        //                 // Cập nhật Order vào database
-        //                 const usersRef = ref(database, `User/${userId}`);
-        //                 set(usersRef, updatedUser).then(() => {
-        //                     console.log(`User ${userId} updated successfully.`);
-        //                 }).catch((error) => {
-        //                     console.error(`Error updating order ${userId}:`, error);
-        //                 });
-        //             }
-        //         }
-        //     });
-        // }
-
         function isFieldChanged(fieldName, currentValue) {
         return currentValue !== initialData[fieldName];
         }
@@ -323,14 +269,9 @@
             const updateFormDiv = document.getElementById('userEditForm');
             const form = document.createElement('form');
             updateFormDiv.style.display = 'block';
-            // Create input fields for the new key and value
-            // Lấy keys của Status 
             const statusKeys = Object.keys(data.Status);
 
-            // Lấy key cuối cùng
             const lastStatusKey = statusKeys[statusKeys.length - 1];
-
-            // Lấy value tương ứng với key cuối cùng
             const lastStatusValue = data.Status[lastStatusKey];
             const newKeyInput = createInput('text', 'New Key', lastStatusKey);
             const newValueInput = createInput('text', 'New Value', lastStatusValue);
@@ -339,22 +280,17 @@
             submitBtn.textContent = 'Add Key-Value';
 
             submitBtn.addEventListener('click', () => {
-                // Get the new key and value from the input fields
                 const newKey = newKeyInput.value;
                 const newValue = newValueInput.value;
 
-                // Update the `Status` object with the new key-value pair
                 const updatedStatus = { ...data.Status };
                 updatedStatus[newKey] = newValue;
 
-                // Update the data with the new `Status` object
                 data.Status = updatedStatus;
 
-                // Save the updated data to Firebase
                 const userRef = ref(database, `Order/${key}`);
                 set(userRef, data)
                     .then(() => {
-                        // Form submission successful, you can hide the form
                         form.style.display = 'none';
 
                     })
@@ -364,14 +300,9 @@
             });
             
 
-            // Add input fields and the submit button to the form
             form.appendChild(newKeyInput);
             form.appendChild(newValueInput);
             form.appendChild(submitBtn);
-
-            // Add the form to a specific location in your HTML (e.g., below the table)
-            // You'll need to identify the appropriate location to add the form in your HTML structure.
-            // For this example, we assume there's a div with the ID "updateFormDiv" where the form will be added.
             
             updateFormDiv.innerHTML = '';
             updateFormDiv.appendChild(form);
@@ -399,11 +330,9 @@
             const statusInput = createInput('text', 'Status', user.Status);
 
             const paymentInput = createInput('text', 'Status', user.Payment);
-            // Tạo nút cập nhật
             const updateButton = document.createElement('button');
             updateButton.textContent = 'Cập nhật';
             updateButton.addEventListener('click', () => {
-                // Xử lý cập nhật dữ liệu người dùng vào Firebase
                 const updatedUserData = { ...initialData};
 
                 if (isFieldChanged('Service.Category', categoryInput.value) || isFieldChanged('Service.Combo', comboInput.value) || isFieldChanged('Service.Subservice', subserviceInput.value)) {
@@ -426,11 +355,9 @@
                     updatedUserData.Payment = paymentInput.value; 
                 }
 
-                // kiểm tra các trường khác tương tự
                 const userRef = ref(database, `Order/${uid}`);
                 set(userRef, updatedUserData)
                     .then(() => {
-                        // Cập nhật thành công, ẩn form chỉnh sửa
                         editFormDiv.style.display = 'none';
                     })
                     .catch((error) => {
@@ -438,7 +365,6 @@
                     });
             });
 
-            // Thêm các trường dữ liệu và nút vào form
             form.appendChild(categoryInput);
             form.appendChild(comboInput);
             form.appendChild(subserviceInput);
@@ -447,13 +373,11 @@
             form.appendChild(paymentInput);
             form.appendChild(updateButton);
 
-            // Xóa nội dung cũ và thêm form vào div chỉnh sửa
             editFormDiv.innerHTML = '';
             editFormDiv.appendChild(form);
             
         }
 
-        // Hàm tạo trường dữ liệu
         function createInput(type, placeholder, value) {
             const input = document.createElement('input');
             input.setAttribute('type', type);
@@ -473,9 +397,6 @@
                 console.error('Error deleting user:', error);
         });
     }
-    // Order
-    
-
     </script>
     <script src="admin.js"></script>
 </body>

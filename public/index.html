@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TBEAR</title>
-    <link rel="stylesheet" href="landingStyle.css" />
-    
+    <link rel="icon" href="EXE_web/Icon App.png" type="image/x-icon" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="overlay" id="overlay"></div>
@@ -15,7 +15,7 @@
         <div class="left-container">
           <div class="logo">
             <a href="">
-              <img class="logo-png" src="EXE\tbear.png" alt="" />
+              <img class="logo-png" src="EXE/tbear.png" alt="" />
             </a>
           </div>
         </div>
@@ -23,16 +23,17 @@
           <div class="navbar-container">
             <nav class="navbar">
               <a href="">Trang chủ</a>
-              <a href="">Giới thiệu</a>
-              <a href="">Dịch vụ</a>
-              <a href="">Gói</a>
+              <a href="#gioithieu">Giới thiệu</a>
+              <a href="#dichvu">Dịch vụ</a>
+              <a href="#goi">Gói</a>
             </nav>
           </div>
         </div>
         <div class="right-container">
           <div class="btn-box">
             <button class="btnLogin-popup">Đăng nhập</button>
-            <button class="btn-popup">Liên hệ ngay</button>
+            <a href="https://drive.google.com/file/d/1wlX-Qm56EykS58TufPjEYQPw_ulMzgVK/view?fbclid=IwAR0-v0tgKRytWy6oWt_lWi4Ylrnzotz_VEH9_6DAlnPDTLrJxhBKRkmFZmg
+            " class="button-up"><button class="btn-popup">Tải APK</button></a>
           </div>
         </div>
       </div>
@@ -44,71 +45,75 @@
               <ion-icon name="close-outline"></ion-icon>
             </span>
             <div class="form-box login">
-              <h2>Login</h2>
+              <h2>Đăng Nhập</h2>
               <form action="#">
                 <div class="input-box">
                   <span class="icon">
                     <ion-icon name="mail-outline"></ion-icon>
                   </span>
                   <input type="Email" id="email" required />
-                  <label>Email</label>
+                  <label>Tên người dùng/Email</label>
                 </div>
                 <div class="input-box">
                   <span class="icon">
                     <ion-icon name="lock-closed-outline"></ion-icon>
                   </span>
                   <input type="password" id="password" required />
-                  <label>Password</label>
+                  <label>Mật khẩu</label>
                 </div>
                 <div class="remember-forgot">
-                  <label><input type="checkbox" />Remember me</label>
-                  <a href="#">Forgot Password ?</a>
+                  <label><input type="checkbox" />Ghi nhớ</label>
+                  <a href="forgotPass.html" onclick="openNewWindow(600, 400); return false;">Quên mật khẩu ?</a>
                 </div>
-                <button type="submit" class="btn">Login</button>
+                <button type="submit" class="btn" id="loginbtn">
+                  Đăng nhập
+                </button>
                 <div class="login-register">
                   <p>
-                    Don't have an account ?
-                    <a href="#" class="register-link">Register</a>
+                    Chưa có tài khoản ?
+                    <a href="#" class="register-link">Đăng kí</a>
                   </p>
                 </div>
               </form>
             </div>
             <!-- Register -->
             <div class="form-box register">
-              <h2>Registration</h2>
+              <h2>Đăng Kí</h2>
               <form action="#">
                 <div class="input-box">
                   <span class="icon">
                     <ion-icon name="person-outline"></ion-icon>
                   </span>
-                  <input type="Text" required />
-                  <label>Username</label>
+                  <input type="Text" id="username" required />
+                  <label>Tên</label>
                 </div>
                 <div class="input-box">
                   <span class="icon">
                     <ion-icon name="mail-outline"></ion-icon>
                   </span>
-                  <input type="Email" required />
-                  <label>Email</label>
+                  <input type="Email" id="reEmail" required />
+                  <label>Tên người dùng/Email</label>
                 </div>
                 <div class="input-box">
                   <span class="icon">
                     <ion-icon name="lock-closed-outline"></ion-icon>
                   </span>
-                  <input type="password" required />
-                  <label>Password</label>
+                  <input type="password" id="rePassword" required />
+                  <label>Mật khẩu</label>
                 </div>
                 <div class="remember-forgot">
                   <label
-                    ><input type="checkbox" />Agree to the terms &
-                    condititions</label
+                    ><input type="checkbox" />Đồng ý với điều khoản sử
+                    dụng</label
                   >
                 </div>
-                <button type="submit" class="btn">Register</button>
+                <button type="submit" class="btn" id="registerbtn">
+                  Đăng kí
+                </button>
                 <div class="login-register">
                   <p>
-                    Already have an account ?
-                    <a href="#" class="login-link">Login</a>
+                    Đã có tài khoản ?
+                    <a href="#" class="login-link">Đăng nhập</a>
                   </p>
                 </div>
               </form>
@@ -128,7 +133,7 @@
           <div class="content-header">
             <header>Giới Thiệu</header>
           </div>
-          <div class="intro-container">
+          <div class="intro-container" id="gioithieu">
             <p>
               Ekip TBEAR: D.O.P & Editor có nhân sự lên đến 25 thành viên với
               kinh nghiệm từ 2 năm,họ ở nhiều vị trí và đảm nhiệm khác nhau như
@@ -141,17 +146,17 @@
           </div>
           <div class="sosial-logo">
             <nav class="nav-logo">
-              <a href="">
-                <img src="EXE/facebook.png" alt="" />
+              <a href="https://www.facebook.com/TbearStudio.MediaProduction">
+                <img src="EXE_web/facebook.png" alt="" />
               </a>
               <a href="">
-                <img src="EXE/google.png" alt="" />
+                <img src="EXE_web/instagram.png" alt="" />
               </a>
               <a href="">
-                <img src="EXE/BIDV_Logo 1.png" alt="" />
+                <img src="EXE_web/youtube.png" alt="" />
               </a>
               <a href="">
-                <img src="EXE/twitter.png" alt="" />
+                <img src="EXE_web/tiktok.png" alt="" />
               </a>
             </nav>
           </div>
@@ -174,12 +179,12 @@
             </div>
           </section>
           <!-- Combo -->
-          <div class="combo">
+          <div class="combo" id="dichvu">
             <header class="combo-header">COMBO</header>
             <div class="img-combo">
-              <img src="EXE/combo.png" alt="" />
-              <img src="EXE/combo.png" alt="" />
-              <img src="EXE/combo.png" alt="" />
+              <img src="EXE_web/combo1.png" alt="" />
+              <img src="EXE_web/combo2.png" alt="" />
+              <img src="EXE_web/combo3.png" alt="" />
             </div>
             <div class="decripton-combo">
               <p>Sự kiện @ Sinh nhật @ Đám cưới</p>
@@ -188,21 +193,21 @@
             </div>
           </div>
           <!-- Ưu đãi -->
-          <div class="preferential">
+          <div class="preferential" id="goi">
             <header class="content-preferntial">Ưu đãi hấp dẫn</header>
             <div class="img-preferential">
-              <img src="EXE/discount2.png" alt="" />
-              <img src="EXE/discount2.png" alt="" />
-              <img src="EXE/discoun3.png" alt="" />
+              <img src="EXE_web/discount1.png" alt="" />
+              <img src="EXE_web/discount2.png" alt="" />
+              <img src="EXE_web/discount3.png" alt="" />
             </div>
           </div>
           <!-- Tính năng -->
           <div class="funtion">
             <header class="content-function">Tính năng nổi bật</header>
             <div class="img-function">
-              <img src="EXE/discount2.png" alt="" />
-              <img src="EXE/discount2.png" alt="" />
-              <img src="EXE/discoun3.png" alt="" />
+              <img src="EXE_web/discount4.png" alt="" />
+              <img src="EXE_web/discount5.png" alt="" />
+              <img src="EXE_web/discount6.png" alt="" />
             </div>
           </div>
           <!-- Download -->
@@ -211,15 +216,15 @@
               <div class="tbear-app-left-box">
                 <header>Download TBEAR App</header>
                 <div class="tbear-app-left-inbox">
-                  <img src="EXE/qr.png" alt="" />
+                  <img src="EXE_web/qr_code.png" alt="" />
                   <p>OR</p>
-                  <img src="EXE/appstore.png" alt="" />
+                  <img src="EXE_web/app.png" alt="" />
                 </div>
               </div>
             </div>
             <div class="tbear-app-right">
               <div class="tbear-app-right-box">
-                <img src="EXE/telephone.png" alt="" />
+                <img src="EXE_web/phone.png" alt="" />
               </div>
             </div>
           </div>
@@ -227,7 +232,7 @@
           <div class="about">
             <div class="about-box">
               <div class="tbear-logo">
-                <img src="EXE/Techlogo.png" alt="" />
+                <img src="EXE_web/logo.png" alt="" />
               </div>
               <div class="content-about">
                 <h3>Nội dung</h3>
@@ -237,19 +242,19 @@
               <div class="icon-about">
                 <nav>
                   <a href="">
-                    <img src="EXE/image 13.png" alt="" />
+                    <img src="EXE_web/image 13.png" alt="" />
                   </a>
                   <a href="">
-                    <img src="EXE/image 14.png" alt="" />
+                    <img src="EXE_web/image 14.png" alt="" />
                   </a>
                   <a href="">
-                    <img src="EXE/image 15.png" alt="" />
+                    <img src="EXE_web/image 15.png" alt="" />
                   </a>
                   <a href="">
-                    <img src="EXE/image 16.png" alt="" />
+                    <img src="EXE_web/image 16.png" alt="" />
                   </a>
                   <a href="">
-                    <img src="EXE/image 17.png" alt="" />
+                    <img src="EXE_web/image 17.png" alt="" />
                   </a>
                 </nav>
               </div>
@@ -262,35 +267,144 @@
         </div>
       </div>
     </div>
-    
-    <script src="script.js"></script>
-    <script src="login.js"></script>
-
+    <script>
+      function openNewWindow(width, height) {
+          var left = (screen.width - width) / 2;
+          var top = (screen.height - height) / 2;
+          window.open("forgotPass.html", "ForgotPasswordWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
+      }
+  </script>
     <script type="module">
-      // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-    
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyAW3knoz4TwZgFARvgC8WEtI550jxKrcP4",
-        authDomain: "studio-web-cffe9.firebaseapp.com",
-        databaseURL: "https://studio-web-cffe9-default-rtdb.firebaseio.com",
-        projectId: "studio-web-cffe9",
-        storageBucket: "studio-web-cffe9.appspot.com",
-        messagingSenderId: "451293318152",
-        appId: "1:451293318152:web:83057db1f494c14aaa55bd",
-        measurementId: "G-F3HYG50TPS"
-      };
-    
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
-    </script>
+      import {
+        getDatabase,
+        ref,
+        onValue,
+        set,
+        get,
+        child,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
+      const firebaseConfig = {
+        apiKey: "AIzaSyAp38us8jaWEkSeLrJMNQ7Wo8CA4S5oizU",
+        authDomain: "webtb-3c6e6.firebaseapp.com",
+        projectId: "webtb-3c6e6",
+        storageBucket: "webtb-3c6e6.appspot.com",
+        messagingSenderId: "16618818372",
+        appId: "1:16618818372:web:83106e18c28be09102e511",
+        measurementId: "G-6X13QF9K9Q",
+      };
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      const auth = getAuth();
+
+      async function getCountFromFirebase() {
+          const dbRef = ref(database, 'User/');
+          try {
+              const snapshot = await get(dbRef);
+              let count = 0;
+              snapshot.forEach(childSnapshot => {
+                  count++;
+              });
+              return count = count++;
+          } catch (error) {
+              console.error('Lỗi:', error);
+              return -1; 
+          }
+      }
+
+      document
+        .querySelector(".icon-close")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          document.getElementById("email").value = "";
+          document.getElementById("password").value = "";
+          document.getElementById("username").value = "";
+          document.getElementById("reEmail").value = "";
+          document.getElementById("rePassword").value = "";
+        });
+
+      document
+        .getElementById("registerbtn")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          const username = document.getElementById("username").value;
+          const email = document.getElementById("reEmail").value;
+          const password = document.getElementById("rePassword").value;
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              const user = userCredential.user;
+              getCountFromFirebase()
+              .then(count => {
+                  if (count !== -1) {
+                    set(ref(database, "User/" + ((count))), {
+                      Email: email,
+                      Password: password,
+                      Role: "user",
+                    })
+                      .then(() => {
+                        alert("Đăng ký thành công!");
+                      })
+                      .catch((error) => {
+                        alert(error);
+                        console.error(
+                          "Lỗi khi thêm thông tin người dùng vào cơ sở dữ liệu:",
+                          error
+                        );
+                      })
+                      .catch((error) => {
+                        alert("Email đã được sử dụng!");
+                        console.error("Lỗi khi đăng ký tài khoản:", error);
+                      });
+                  } else {
+                        alert("Lỗi khi lấy số lượng nút con từ cơ sở dữ liệu.");
+                    }
+                });
+              });
+        });
+
+        document
+        .getElementById("loginbtn")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          const emaill = document.getElementById("email").value;
+          const passwordl = document.getElementById("password").value;
+          login(emaill,passwordl);
+        });
+        function login(email, password) {
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;   
+            const dbRef = ref(database);
+            get(child(dbRef, `User`)).then((snapshot) => {
+              let key,role;
+              snapshot.forEach(childSnap => {
+                if (childSnap.val().Email === email) {
+                  key = childSnap.key;
+                  role = childSnap.val().Role; 
+                }
+              });
+              if (role === 'admin') {
+                console.log("admin");
+                window.location.href = "admin/admin.html";
+              } else if (role === 'user') {
+                console.log("user");
+                window.location.href = "landing/landing.html";             
+              }  
+            });
+          })
+          .catch((error) => {
+            alert("Email hoặc mật khẩu không chính xác!");
+            console.log(error); 
+          });
+        }    
+    </script>
+    <script src="script.js"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
